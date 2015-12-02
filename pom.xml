@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.redhat.hotrod.storedtask</groupId>
+    <artifactId>hotrod-storedtask</artifactId>
+    <version>1.0.0</version>
+    <name>Hot Rod Stored Task Demo</name>
+
+ 
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+ 
+        <version.org.infinispan>8.1.0.CR1</version.org.infinispan>
+
+        <!-- other plugin versions -->
+        <exec.plugin.version>1.2.1</exec.plugin.version>
+        <ant.plugin.version>1.7</ant.plugin.version>
+    </properties>
+    <repositories>
+      <repository>
+                    <id>jboss-public-repository-group</id>
+                    <name>JBoss Public Maven Repository Group</name>
+                    <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+    </repositories>    
+ 
+    <dependencies>
+        <!-- Import the infinispan core -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+            <scope>compile</scope>
+            <version>${version.org.infinispan}</version>
+        </dependency>
+
+        <!-- Import the Infinispan client hotrod -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-client-hotrod</artifactId>
+            <version>${version.org.infinispan}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Maven will append the version to the finalName (which is the 
+            name given to the generated jar) -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- This plugin permits the execution of this quickstart 
+                through mvn exec:java command -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.redhat.hotrod.storedtask.Demo1</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+ 
+</project>

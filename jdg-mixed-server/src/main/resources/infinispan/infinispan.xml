@@ -11,10 +11,11 @@
       <globalJmxStatistics allowDuplicateDomains="true" />
    </global>
    <namedCache name="MyCoolCache">
-   
+     <transaction transactionMode="TRANSACTIONAL" />
       <clustering mode="dist">
          <sync />
       </clustering>
        <compatibility enabled="true" />
+           
    </namedCache>
 </infinispan>

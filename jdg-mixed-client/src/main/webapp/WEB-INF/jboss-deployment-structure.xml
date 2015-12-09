@@ -9,5 +9,11 @@
             <module name="org.infinispan" />
      	    <module name="org.jboss.netty" />
         </exclusions>
+        <!--
+       <dependencies>
+         <module name="deployment.jdg-mixed-server-1.0.0-SNAPSHOT.war" />
+        
+      </dependencies>
+      -->
     </deployment>
 </jboss-deployment-structure>

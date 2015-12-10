@@ -53,9 +53,12 @@ public class PutServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             cache = cacheContainer.getCache("MyCoolCache");
-            User u = new User();
-            u.setName("frank");
-            cache.put("frank", u);
+            Pojo pojo = new Pojo();
+            pojo.setMessage("msg");
+            pojo.setX(1);
+            pojo.setY(1);
+            
+            cache.put("key", pojo);
             System.out.println("Put Pojo in cache!");
 
   //          TransactionManager tm = cache.getAdvancedCache().getTransactionManager();

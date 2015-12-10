@@ -1,6 +1,6 @@
 package it.redhat.demo.client.hotrod;
 
-import com.bp.ist.dps.common.model.Deal;
+import it.redhat.demo.model.Pojo;
 import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -65,7 +65,7 @@ public class HotRodClientFactory implements HotRodFactory {
            // client
            generatedSchema = protoSchemaBuilder.fileName("twb.proto")
                    .packageName("it.redhat.demo.model")
-                   .addClass(Deal.class)
+                   .addClass(Pojo.class)
                    .build(serCtx);
 
            // register the schemas with the server too

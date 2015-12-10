@@ -118,18 +118,18 @@
       <dependency>
          <groupId>org.infinispan</groupId>
          <artifactId>infinispan-query</artifactId>
-         <version>{version.org.infinispan}</version>
+         <version>${version.org.infinispan}</version>
          <scope>provided</scope>
       </dependency>
       <dependency>
          <groupId>org.infinispan</groupId>
          <artifactId>infinispan-query-dsl</artifactId>
-         <version>{version.org.infinispan}</version>
+         <version>${version.org.infinispan}</version>
       </dependency>
       <dependency>
          <groupId>org.infinispan</groupId>
          <artifactId>infinispan-remote-query-client</artifactId>
-         <version>{version.org.infinispan}</version>
+         <version>${version.org.infinispan}</version>
       </dependency>
       <!--       
                         <dependency>

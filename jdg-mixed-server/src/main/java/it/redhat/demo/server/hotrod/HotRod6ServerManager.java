@@ -12,6 +12,7 @@ import org.infinispan.server.hotrod.configuration.HotRodServerConfigurationBuild
 import it.redhat.demo.cache.ApplicationCacheManager;
 import it.redhat.demo.cache.event.StaticCacheEventConverterFactory;
 import it.redhat.demo.server.ProtocolServerManager;
+import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

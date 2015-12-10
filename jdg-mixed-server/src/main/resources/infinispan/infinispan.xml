@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="urn:infinispan:config:6.2 http://www.infinispan.org/schemas/infinispan-config-6.2.xsd"
-   xmlns="urn:infinispan:config:6.2">
-   <global>
-      <transport>
-         <properties>
-            <property name="configurationFile" value="ispn-jgroups-tcp.xml" />
-         </properties>
-      </transport>
-      <globalJmxStatistics allowDuplicateDomains="true" />
-   </global>
-   <namedCache name="MyCoolCache">
-     <transaction transactionMode="TRANSACTIONAL" />
-      <clustering mode="dist">
-         <sync />
-      </clustering>
-       <compatibility enabled="true" />
+            xsi:schemaLocation="urn:infinispan:config:6.2 http://www.infinispan.org/schemas/infinispan-config-6.2.xsd"
+            xmlns="urn:infinispan:config:6.2">
+    <global>
+        <transport>
+            <properties>
+                <property name="configurationFile" value="ispn-jgroups-tcp.xml" />
+            </properties>
+        </transport>
+        <globalJmxStatistics allowDuplicateDomains="true" />
+    </global>
+    <namedCache name="MyCoolCache">
+        <transaction transactionMode="TRANSACTIONAL" />
+        <clustering mode="dist">
+            <sync />
+        </clustering>
+         <compatibility enabled="true" />
            
-   </namedCache>
+    </namedCache>
 </infinispan>

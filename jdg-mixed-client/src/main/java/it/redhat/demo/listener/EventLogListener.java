@@ -11,8 +11,9 @@ public class EventLogListener {
     
   @ClientCacheEntryCreated
   public void entryAdded(ClientEvent event) {
-    System.out.println("Element added! "+event);
-   
+    
+    ClientCacheEntryCreatedEvent e = (ClientCacheEntryCreatedEvent)event;
+    System.out.println("[ClientListener] Key added " +e.getKey());
   }
 
 

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.infinispan.Cache;
 import org.infinispan.manager.CacheContainer;
 import it.redhat.demo.cache.LocalCacheContainer;
+import it.redhat.demo.client.hotrod.User;
+import it.redhat.demo.model.Pojo;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
@@ -51,13 +53,15 @@ public class PutServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             cache = cacheContainer.getCache("MyCoolCache");
-            cache.put("frank", "value");
-            System.out.println("Put in cache!");
+            User u = new User();
+            u.setName("frank");
+            cache.put("frank", u);
+            System.out.println("Put Pojo in cache!");
 
-            TransactionManager tm = cache.getAdvancedCache().getTransactionManager();
-            tm.begin();
-            cache.put("wrong", "value");
-            tm.rollback();
+  //          TransactionManager tm = cache.getAdvancedCache().getTransactionManager();
+  //          tm.begin();
+  //          cache.put("wrong", "value");
+  //          tm.rollback();
 
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
@@ -79,11 +83,9 @@ public class PutServlet extends HttpServlet {
                 out.println("</body>");
                 out.println("</html>");
             }
-        } catch (NotSupportedException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PutServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(PutServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

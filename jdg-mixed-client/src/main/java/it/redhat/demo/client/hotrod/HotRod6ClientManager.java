@@ -18,15 +18,7 @@ public class HotRod6ClientManager implements ProtocolServerManager {
 
 	private static final int DEFAULT_WORKER_THREADS = 160;
 
-	private static final String bindAddress = "127.0.0.1";
-
-	private static final String ISPN_HOTROD_PROXY_HOST = "infinispan.hotrod.proxy.host";
-
-	private static final String ISPN_HOTROD_PROXY_PORT = "infinispan.hotrod.proxy.port";
-
- 
- 
-           
+	private static final String bindAddress = "127.0.0.1";       
        
 	@Inject
 	private RemoteCacheManager cacheManager;
@@ -35,18 +27,6 @@ public class HotRod6ClientManager implements ProtocolServerManager {
 	public void bootstrapProtocolClient() {
             RemoteCache<String, Object> cache=null;
 
-/*
-		LOGGER.info("Starting the HotRodServer.");
-
-	
-		try {
-			// Configure the configuration builder.
-	     ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.addServer()
-                .host(bindAddress)
-                .port(DEFAULT_HOTROD_PORT);
-        cacheManager = new RemoteCacheManager(builder.build());
- */
         boolean done = false;    
   	try {
       	
@@ -66,16 +46,6 @@ public class HotRod6ClientManager implements ProtocolServerManager {
 		}
 	}
  
-
-	/*
-	 * private HotRodServerConfigurationBuilder setConverter(HotRodServerConfigurationBuilder builder) { return
-	 * builder.converterFactory("static-converter", new StaticConverterFactory()); }
-	 */
-/*
-	private void startProtocolServer(ProtocolServerConfiguration configuration) {
-              	
-	}
-*/
 	@Override
 	public synchronized void stop() {
 		if (cacheManager != null)

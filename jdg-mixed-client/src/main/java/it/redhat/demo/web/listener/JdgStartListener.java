@@ -44,12 +44,6 @@ public class JdgStartListener implements ServletContextListener {
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
 	public void contextInitialized(ServletContextEvent scEvent) {
-             /*
-            if (startCachesOnStartup == true) {
-			LOGGER.info("Starting default cache."); 
-			cacheManager.startCache();
-		}
-            */
 		//Fire up the Hotrod Listener
 		protocolServerManager.bootstrapProtocolClient();
 	}
@@ -60,9 +54,6 @@ public class JdgStartListener implements ServletContextListener {
 	 */
 	public void contextDestroyed(ServletContextEvent arg0) {
 		LOGGER.info("Stopping the HotRod server.");
-		//Cache Container stop is managed by CDI.
-		//cacheManager.stopCacheContainer();
-		//cacheManager.stopCache();
 		protocolServerManager.stop();
 	}
 

@@ -44,6 +44,8 @@ public class HotRodClientFactory implements HotRodFactory {
             builder.nearCache().mode(NearCacheMode.LAZY);
             builder.nearCache().maxEntries(100);
             
+            
+            //builder.addServers()        
             builder.addServer()                  
                     .host("127.0.0.1")
                     .port(DEFAULT_HOTROD_PORT)

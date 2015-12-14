@@ -16,16 +16,15 @@ import org.infinispan.protostream.annotations.ProtoMessage;
  */
 @ProtoMessage(name = "CacheEdge")
 @ProtoDoc("@Indexed")
- public  class CacheEdge implements Serializable {
+public class CacheEdge implements Serializable {
 
-     private static final long         serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    private String                    nodeKey;
+    private String nodeKey;
 
-    
-    private Long                      order;
+    private Long order;
 
-    private Object                    data;
+    private Object data;
 
     public CacheEdge(String nodeKey) {
 
@@ -35,9 +34,11 @@ import org.infinispan.protostream.annotations.ProtoMessage;
 
         this.nodeKey = nodeKey;
     }
-    public CacheEdge( ) {   }
 
-        @ProtoField(number = 1, required = true)
+    public CacheEdge() {
+    }
+
+    @ProtoField(number = 1, required = true)
     @ProtoDoc("@IndexedField(index = true, store = true)")
     public String getNodeKey() {
         return nodeKey;
@@ -47,7 +48,7 @@ import org.infinispan.protostream.annotations.ProtoMessage;
         this.nodeKey = nodeKey;
     }
 
-        @ProtoField(number = 2, required = true)
+    @ProtoField(number = 2, required = true)
     @ProtoDoc("@IndexedField(index = true, store = true)")
     public Long getOrder() {
         return order;
@@ -57,7 +58,7 @@ import org.infinispan.protostream.annotations.ProtoMessage;
         this.order = order;
     }
 
-        @ProtoField(number = 3, required = true)
+    @ProtoField(number = 3, required = true)
     @ProtoDoc("@IndexedField(index = true, store = true)")
     public Object getData() {
         return data;
@@ -66,7 +67,5 @@ import org.infinispan.protostream.annotations.ProtoMessage;
     public void setData(Object data) {
         this.data = data;
     }
-    
-     
-    
+
 }

@@ -9,13 +9,14 @@
             </properties>
         </transport>
         <globalJmxStatistics allowDuplicateDomains="true" />
+        
     </global>
     <namedCache name="MyCoolCache">
         <transaction transactionMode="TRANSACTIONAL" />
         <clustering mode="dist">
             <sync />
         </clustering>
-         <compatibility enabled="true" />
-           
+        <dataContainer keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence" /> 
+        <compatibility enabled="true" />         
     </namedCache>
 </infinispan>

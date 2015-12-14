@@ -1,12 +1,14 @@
 package it.redhat.demo.client.hotrod;
 
-import it.redhat.demo.model.Pojo;
+
+import it.redhat.demo.model.*;
 import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
 import org.infinispan.protostream.FileDescriptorSource;
 import org.infinispan.protostream.SerializationContext;
@@ -39,9 +41,13 @@ public class HotRodClientFactory implements HotRodFactory {
             ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
 
             ConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.addServer()
+            builder.nearCache().mode(NearCacheMode.LAZY);
+            builder.nearCache().maxEntries(100);
+            
+            builder.addServer()                  
                     .host("127.0.0.1")
-                    .port(DEFAULT_HOTROD_PORT).marshaller(mm);
+                    .port(DEFAULT_HOTROD_PORT)
+                    .marshaller(mm);
 
             cacheManager = new RemoteCacheManager(builder.build());
 
@@ -66,7 +72,9 @@ public class HotRodClientFactory implements HotRodFactory {
             // client
             generatedSchema = protoSchemaBuilder.fileName("twb.proto")
                     .packageName("it.redhat.demo.model")
-                    .addClass(Pojo.class)
+                    .addClass(CacheNode.class)
+                    .addClass(CacheEdge.class)
+                    .addClass(TreeCacheDTO.class)
                     .build(serCtx);
 
             // register the schemas with the server too

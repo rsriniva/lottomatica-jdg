@@ -6,50 +6,98 @@
 package it.redhat.demo.model;
 
 import java.io.Serializable;
-import org.infinispan.protostream.annotations.ProtoDoc;
-import org.infinispan.protostream.annotations.ProtoField;
-import org.infinispan.protostream.annotations.ProtoMessage;
+import java.util.List;
 
-@ProtoMessage(name = "Pojo")
-@ProtoDoc("@Indexed")
-public class Pojo implements Serializable {
-    private String message;
-    int x;
-    int y;
-    
-    @ProtoField(number = 1, required = true)
-    @ProtoDoc("@IndexedField(index = true, store = true)")
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    @ProtoField(number = 2, required = true)
-    @ProtoDoc("@IndexedField(index = true, store = true)")
-    public int getX() {
-        return x;
+ 
+public class CacheNode<T extends TreeCacheDTO> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    public CacheNode(String nodeKey) {
+
+        this.nodeKey = nodeKey;
+        this.edgesToChildNodes = new CacheEdge();
+        this.edgesToParentNodes = new CacheEdge();
+       // this.nodeNotification = new CacheNodeNotification();
+       // this.zchildNodes = new ArrayList<CacheNode<T>>();
     }
 
-    public void setX(int x) {
-        this.x = x;
+    private String                nodeKey;
+
+    private T                     cachedDTO;
+
+    private CacheEdge            edgesToParentNodes;
+
+    private CacheEdge            edgesToChildNodes;
+
+  
+
+ 
+    private List<CacheNode<T>>    zchildNodes;
+
+    @Override
+    public CacheNode<T> clone() {
+
+        CacheNode<T> clone = null;
+
+        try {
+            clone = (CacheNode<T>) super.clone();
+        } catch (CloneNotSupportedException e) {
+           e.printStackTrace();
+        }
+
+       
+
+        return clone;
     }
-    @ProtoField(number = 3, required = true)
-    @ProtoDoc("@IndexedField(index = true, store = true)")
-    public int getY() {
-        return y;
+ 
+    public String getNodeKey() {
+        return nodeKey;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setNodeKey(String nodeKey) {
+        this.nodeKey = nodeKey;
+    }
+ 
+    public T getCachedDTO() {
+        return cachedDTO;
+    }
+
+    public void setCachedDTO(T cachedDTO) {
+        this.cachedDTO = cachedDTO;
+    }
+ 
+    public CacheEdge getEdgesToParentNodes() {
+        return edgesToParentNodes;
+    }
+
+    public void setEdgesToParentNodes(CacheEdge edgesToParentNodes) {
+        this.edgesToParentNodes = edgesToParentNodes;
+    }
+ 
+    public CacheEdge getEdgesToChildNodes() {
+        return edgesToChildNodes;
+    }
+
+    public void setEdgesToChildNodes(CacheEdge edgesToChildNodes) {
+        this.edgesToChildNodes = edgesToChildNodes;
+    }
+ 
+    public List<CacheNode<T>> getZchildNodes() {
+        return zchildNodes;
+    }
+
+    public void setZchildNodes(List<CacheNode<T>> zchildNodes) {
+        this.zchildNodes = zchildNodes;
     }
 
     @Override
     public String toString() {
-        return "Pojo{" + "message=" + message + ", x=" + x + ", y=" + y + '}';
+        return "CacheNode{" + "nodeKey=" + nodeKey + ", cachedDTO=" + cachedDTO + ", edgesToParentNodes=" + edgesToParentNodes + ", edgesToChildNodes=" + edgesToChildNodes + ", zchildNodes=" + zchildNodes + '}';
     }
+
+ 
     
     
 }

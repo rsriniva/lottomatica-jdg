@@ -17,6 +17,7 @@ import org.infinispan.Cache;
 import org.infinispan.manager.CacheContainer;
 import it.redhat.demo.cache.LocalCacheContainer;
 import it.redhat.demo.client.hotrod.User;
+import it.redhat.demo.model.CacheNode;
 import it.redhat.demo.model.Pojo;
 import java.util.Iterator;
 import java.util.Set;
@@ -53,12 +54,9 @@ public class PutServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             cache = cacheContainer.getCache("MyCoolCache");
-            Pojo pojo = new Pojo();
-            pojo.setMessage("msg");
-            pojo.setX(1);
-            pojo.setY(1);
+            CacheNode node = new CacheNode("mykey");           
+            cache.put("key", node);
             
-            cache.put("key", pojo);
             System.out.println("Put Pojo in cache!");
 
   //          TransactionManager tm = cache.getAdvancedCache().getTransactionManager();

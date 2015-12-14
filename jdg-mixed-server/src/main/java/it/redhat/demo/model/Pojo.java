@@ -11,16 +11,16 @@ import java.io.Serializable;
  *
  * @author francesco
  */
-public class Pojo implements Serializable {
-    private String message;
+public class Pojo<T> implements Serializable {
+    private T message;
     int x;
     int y;
 
-    public String getMessage() {
+    public T getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(T message) {
         this.message = message;
     }
 

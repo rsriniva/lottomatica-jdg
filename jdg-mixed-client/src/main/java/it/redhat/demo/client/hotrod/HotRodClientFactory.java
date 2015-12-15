@@ -19,11 +19,7 @@ import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Provides a local CacheContainer in Infinispan 'Library-Mode'.
- *
- * @author <a href="mailto:duncan.doyle@redhat.com">Duncan Doyle</a>
- */
+
 public class HotRodClientFactory implements HotRodFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HotRodClientFactory.class);

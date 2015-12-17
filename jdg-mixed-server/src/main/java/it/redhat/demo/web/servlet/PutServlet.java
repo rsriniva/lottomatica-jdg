@@ -5,30 +5,25 @@
  */
 package it.redhat.demo.web.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import it.redhat.demo.cache.LocalCacheContainer;
+import it.redhat.demo.model.CacheNode;
+import org.infinispan.Cache;
+import org.infinispan.manager.CacheContainer;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.infinispan.Cache;
-import org.infinispan.manager.CacheContainer;
-import it.redhat.demo.cache.LocalCacheContainer;
-import it.redhat.demo.client.hotrod.User;
-import it.redhat.demo.model.CacheNode;
-import it.redhat.demo.model.Pojo;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
-import javax.transaction.TransactionManager;
 
 /**
- *
  * @author francesco
  */
 @WebServlet(name = "PutServlet", urlPatterns = {"/PutServlet"})
@@ -54,15 +49,15 @@ public class PutServlet extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
 
             cache = cacheContainer.getCache("MyCoolCache");
-            CacheNode node = new CacheNode("mykey");           
+            CacheNode node = new CacheNode("mykey");
             cache.put("key", node);
-            
+
             System.out.println("Put Pojo in cache!");
 
-  //          TransactionManager tm = cache.getAdvancedCache().getTransactionManager();
-  //          tm.begin();
-  //          cache.put("wrong", "value");
-  //          tm.rollback();
+            //          TransactionManager tm = cache.getAdvancedCache().getTransactionManager();
+            //          tm.begin();
+            //          cache.put("wrong", "value");
+            //          tm.rollback();
 
             try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
@@ -86,17 +81,18 @@ public class PutServlet extends HttpServlet {
             }
         } catch (Exception ex) {
             Logger.getLogger(PutServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -107,10 +103,10 @@ public class PutServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

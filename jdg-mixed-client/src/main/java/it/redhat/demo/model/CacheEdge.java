@@ -24,7 +24,10 @@ public class CacheEdge implements Serializable {
 
     private Long order;
 
-    private Object data;
+//    private Object data;
+
+    public CacheEdge() {
+    }
 
     public CacheEdge(String nodeKey) {
 
@@ -33,9 +36,6 @@ public class CacheEdge implements Serializable {
         }
 
         this.nodeKey = nodeKey;
-    }
-
-    public CacheEdge() {
     }
 
     @ProtoField(number = 1, required = true)
@@ -58,6 +58,7 @@ public class CacheEdge implements Serializable {
         this.order = order;
     }
 
+/*
     @ProtoField(number = 3, required = true)
     @ProtoDoc("@IndexedField(index = true, store = true)")
     public Object getData() {
@@ -67,5 +68,6 @@ public class CacheEdge implements Serializable {
     public void setData(Object data) {
         this.data = data;
     }
+*/
 
 }

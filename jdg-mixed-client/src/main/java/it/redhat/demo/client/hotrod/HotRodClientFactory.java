@@ -1,23 +1,22 @@
 package it.redhat.demo.client.hotrod;
 
 
-import it.redhat.demo.model.*;
-import java.io.IOException;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import it.redhat.demo.model.CacheEdge;
+import it.redhat.demo.model.CacheNode;
+import it.redhat.demo.model.TreeCacheDTO;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
-import org.infinispan.protostream.FileDescriptorSource;
 import org.infinispan.protostream.SerializationContext;
 import org.infinispan.protostream.annotations.ProtoSchemaBuilder;
-import org.infinispan.protostream.annotations.ProtoSchemaBuilderException;
 import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 
 
 public class HotRodClientFactory implements HotRodFactory {
@@ -34,24 +33,29 @@ public class HotRodClientFactory implements HotRodFactory {
 
         // Retrieve Infinispan config file.
         try {
-            ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
+//            ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
 
             ConfigurationBuilder builder = new ConfigurationBuilder();
             builder.nearCache().mode(NearCacheMode.LAZY);
             builder.nearCache().maxEntries(100);
-            
-            
-            //builder.addServers()        
-            builder.addServer()                  
+
+/*
+            builder.addServer()
                     .host("127.0.0.1")
                     .port(DEFAULT_HOTROD_PORT)
                     .marshaller(mm);
+*/
+            builder.addServer()
+                    .host("127.0.0.1")
+                    .port(DEFAULT_HOTROD_PORT);
 
             cacheManager = new RemoteCacheManager(builder.build());
 
+/*
             SerializationContext serCtx = ProtoStreamMarshaller
                     .getSerializationContext(cacheManager);
             configureProtobufMarshaller(serCtx);
+*/
 
         } catch (Exception ioe) {
             throw new RuntimeException("Error Connecting to Infinispan", ioe);
@@ -60,12 +64,12 @@ public class HotRodClientFactory implements HotRodFactory {
     }
 
     private void configureProtobufMarshaller(SerializationContext serCtx) {
-       // generate and register a Protobuf schema and marshallers based
+        // generate and register a Protobuf schema and marshallers based
         // on annotated classes
         ProtoSchemaBuilder protoSchemaBuilder = new ProtoSchemaBuilder();
         String generatedSchema;
         try {
-           // generate the 'twb.proto' schema file based on the annotations on
+            // generate the 'twb.proto' schema file based on the annotations on
             // passed classes and register it with the SerializationContext of the
             // client
             generatedSchema = protoSchemaBuilder.fileName("twb.proto")

@@ -8,13 +8,16 @@ package it.redhat.demo.model;
 import java.io.Serializable;
 
 /**
- *
  * @author francesco
  */
 public class Pojo<T> implements Serializable {
+
     private T message;
-    int x;
-    int y;
+    private int x;
+    private int y;
+
+    public Pojo() {
+    }
 
     public T getMessage() {
         return message;
@@ -44,6 +47,5 @@ public class Pojo<T> implements Serializable {
     public String toString() {
         return "Pojo{" + "message=" + message + ", x=" + x + ", y=" + y + '}';
     }
-    
-    
+
 }

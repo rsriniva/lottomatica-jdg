@@ -5,37 +5,39 @@
  */
 package it.redhat.demo.model;
 
+import org.infinispan.protostream.annotations.ProtoDoc;
+import org.infinispan.protostream.annotations.ProtoField;
+import org.infinispan.protostream.annotations.ProtoMessage;
+
 import java.io.Serializable;
 
-
-
 /**
- *
  * @author francesco
  */
- 
+@ProtoMessage(name = "CacheEdge")
+@ProtoDoc("@Indexed")
 public class CacheEdge implements Serializable {
 
-     private static final long         serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    private String                    nodeKey;
+    private String nodeKey;
 
-    
-    private Long                      order;
+    private Long order;
 
-    private Object                    data;
+//    private Object data;
+
+    public CacheEdge() {
+    }
 
     public CacheEdge(String nodeKey) {
-
         if (nodeKey == null) {
-            throw new RuntimeException("CacheEdge constructor invoked with nodeKey null parameter");
+            throw new IllegalArgumentException("CacheEdge constructor invoked with nodeKey null parameter");
         }
-
         this.nodeKey = nodeKey;
     }
-    public CacheEdge( ) {   }
 
- 
+    @ProtoField(number = 1, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public String getNodeKey() {
         return nodeKey;
     }
@@ -44,7 +46,8 @@ public class CacheEdge implements Serializable {
         this.nodeKey = nodeKey;
     }
 
- 
+    @ProtoField(number = 2, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public Long getOrder() {
         return order;
     }
@@ -53,7 +56,9 @@ public class CacheEdge implements Serializable {
         this.order = order;
     }
 
- 
+/*
+    @ProtoField(number = 3, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public Object getData() {
         return data;
     }
@@ -61,12 +66,6 @@ public class CacheEdge implements Serializable {
     public void setData(Object data) {
         this.data = data;
     }
+*/
 
-    @Override
-    public String toString() {
-        return "CacheEdge{" + "nodeKey=" + nodeKey + ", order=" + order + ", data=" + data + '}';
-    }
-    
-     
-    
 }

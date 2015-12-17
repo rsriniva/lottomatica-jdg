@@ -5,53 +5,41 @@
  */
 package it.redhat.demo.model;
 
+import org.infinispan.protostream.annotations.ProtoDoc;
+import org.infinispan.protostream.annotations.ProtoField;
+import org.infinispan.protostream.annotations.ProtoMessage;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-
- 
+@ProtoMessage(name = "CacheNode")
+@ProtoDoc("@Indexed")
 public class CacheNode<T extends TreeCacheDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private String nodeKey;
+
+    private Long cachedDTO;
+
+    private CacheEdge edgesToParentNodes;
+
+    private CacheEdge edgesToChildNodes;
+
+    private List<it.redhat.demo.model.CacheNode<T>> zchildNodes;
+
+    public CacheNode() {
+    }
+
     public CacheNode(String nodeKey) {
-
         this.nodeKey = nodeKey;
-        this.edgesToChildNodes = new CacheEdge();
-        this.edgesToParentNodes = new CacheEdge();
-       // this.nodeNotification = new CacheNodeNotification();
-       // this.zchildNodes = new ArrayList<CacheNode<T>>();
+        this.edgesToChildNodes = new CacheEdge(nodeKey);
+        this.edgesToParentNodes = new CacheEdge(nodeKey);
     }
 
-    private String                nodeKey;
-
-    private T                     cachedDTO;
-
-    private CacheEdge            edgesToParentNodes;
-
-    private CacheEdge            edgesToChildNodes;
-
-  
-
- 
-    private List<CacheNode<T>>    zchildNodes;
-
-    @Override
-    public CacheNode<T> clone() {
-
-        CacheNode<T> clone = null;
-
-        try {
-            clone = (CacheNode<T>) super.clone();
-        } catch (CloneNotSupportedException e) {
-           e.printStackTrace();
-        }
-
-       
-
-        return clone;
-    }
- 
+    @ProtoField(number = 1, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public String getNodeKey() {
         return nodeKey;
     }
@@ -59,15 +47,19 @@ public class CacheNode<T extends TreeCacheDTO> implements Serializable {
     public void setNodeKey(String nodeKey) {
         this.nodeKey = nodeKey;
     }
- 
-    public T getCachedDTO() {
+
+    @ProtoField(number = 2, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
+    public Long getCachedDTO() {
         return cachedDTO;
     }
 
-    public void setCachedDTO(T cachedDTO) {
+    public void setCachedDTO(Long cachedDTO) {
         this.cachedDTO = cachedDTO;
     }
- 
+
+    @ProtoField(number = 3, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public CacheEdge getEdgesToParentNodes() {
         return edgesToParentNodes;
     }
@@ -75,7 +67,9 @@ public class CacheNode<T extends TreeCacheDTO> implements Serializable {
     public void setEdgesToParentNodes(CacheEdge edgesToParentNodes) {
         this.edgesToParentNodes = edgesToParentNodes;
     }
- 
+
+    @ProtoField(number = 4, required = false)
+    @ProtoDoc("@IndexedField(index = true, store = true)")
     public CacheEdge getEdgesToChildNodes() {
         return edgesToChildNodes;
     }
@@ -83,21 +77,15 @@ public class CacheNode<T extends TreeCacheDTO> implements Serializable {
     public void setEdgesToChildNodes(CacheEdge edgesToChildNodes) {
         this.edgesToChildNodes = edgesToChildNodes;
     }
- 
-    public List<CacheNode<T>> getZchildNodes() {
+
+    @ProtoField(number = 5, collectionImplementation = ArrayList.class, required = false)
+    public List<it.redhat.demo.model.CacheNode<T>> getZchildNodes() {
         return zchildNodes;
     }
 
-    public void setZchildNodes(List<CacheNode<T>> zchildNodes) {
+    public void setZchildNodes(List<it.redhat.demo.model.CacheNode<T>> zchildNodes) {
         this.zchildNodes = zchildNodes;
     }
 
-    @Override
-    public String toString() {
-        return "CacheNode{" + "nodeKey=" + nodeKey + ", cachedDTO=" + cachedDTO + ", edgesToParentNodes=" + edgesToParentNodes + ", edgesToChildNodes=" + edgesToChildNodes + ", zchildNodes=" + zchildNodes + '}';
-    }
 
- 
-    
-    
 }

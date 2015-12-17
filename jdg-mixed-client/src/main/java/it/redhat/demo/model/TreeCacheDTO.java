@@ -5,22 +5,25 @@
  */
 package it.redhat.demo.model;
 
-import java.io.Serializable;
 import org.infinispan.protostream.annotations.ProtoDoc;
 import org.infinispan.protostream.annotations.ProtoField;
 import org.infinispan.protostream.annotations.ProtoMessage;
 
+import java.io.Serializable;
+
 /**
- *
  * @author francesco
  */
 @ProtoMessage(name = "TreeCacheDTO")
 @ProtoDoc("@Indexed")
-public class TreeCacheDTO implements Serializable{
+public class TreeCacheDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long version;
+
+    public TreeCacheDTO() {
+    }
 
     @ProtoField(number = 1, required = true)
     @ProtoDoc("@IndexedField(index = true, store = true)")

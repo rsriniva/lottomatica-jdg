@@ -44,7 +44,7 @@ public class PutServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cache cache = null;
+        Cache<String, CacheNode> cache = null;
         try {
             response.setContentType("text/html;charset=UTF-8");
 

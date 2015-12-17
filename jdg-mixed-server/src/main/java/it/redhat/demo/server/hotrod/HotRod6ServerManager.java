@@ -3,8 +3,10 @@ package it.redhat.demo.server.hotrod;
 import it.redhat.demo.cache.ApplicationCacheManager;
 import it.redhat.demo.cache.event.StaticCacheEventConverterFactory;
 import it.redhat.demo.server.ProtocolServerManager;
+import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
 import org.infinispan.manager.CacheContainer;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.infinispan.protostream.SerializationContext;
 import org.infinispan.server.core.configuration.ProtocolServerConfiguration;
 import org.infinispan.server.core.transport.Transport;
 import org.infinispan.server.hotrod.HotRodServer;
@@ -121,18 +123,14 @@ public class HotRod6ServerManager implements ProtocolServerManager {
         // Add Converter factories.
         // Seems not needed anymore in ISPN 7.0.0.CR1s
         hotRodServer.addCacheEventConverterFactory("static-converter", new StaticCacheEventConverterFactory());
-        //hotRodServer.add
-
 
         try {
-            // transport = (Transport) ReflectionUtil.getValue(hotRodServer, "transport");
             transport = hotRodServer.transport();
         } catch (Exception e) {
             String message = "Failed to instantiate HotRodServer transport.";
             LOGGER.error(message, e);
             throw new RuntimeException(message, e);
         }
-
     }
 
     @Override

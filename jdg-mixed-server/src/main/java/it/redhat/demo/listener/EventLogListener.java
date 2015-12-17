@@ -8,12 +8,9 @@ public class EventLogListener {
 
   @ClientCacheEntryModified
   @ClientCacheEntryRemoved
-    
   @ClientCacheEntryCreated
   public void entryAdded(ClientEvent event) {
     System.out.println("Element added! "+event);
   }
-
-
 
 }

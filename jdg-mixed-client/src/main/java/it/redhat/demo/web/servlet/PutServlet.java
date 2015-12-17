@@ -5,11 +5,11 @@
  */
 package it.redhat.demo.web.servlet;
 
-import it.redhat.demo.cache.LocalCacheContainer;
+import it.redhat.demo.client.hotrod.HotRodClient;
 import it.redhat.demo.model.CacheNode;
 import it.redhat.demo.model.Pojo;
-import org.infinispan.Cache;
-import org.infinispan.manager.CacheContainer;
+import org.infinispan.client.hotrod.RemoteCache;
+import org.infinispan.client.hotrod.RemoteCacheManager;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -40,16 +40,16 @@ public class PutServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Inject
-    @LocalCacheContainer
-    private CacheContainer cacheContainer;
+    @HotRodClient
+    private RemoteCacheManager cacheManager;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cache<String, Pojo> cache = null;
+        RemoteCache<String, Pojo> cache = null;
         try {
             response.setContentType("text/html;charset=UTF-8");
 
-            cache = cacheContainer.getCache("MyCoolCache");
+            cache = cacheManager.getCache("MyCoolCache");
             cache.put("key", new Pojo("Txt", 12L));
 //            CacheNode node = new CacheNode("mykey");
 //            cache.put("key", node);

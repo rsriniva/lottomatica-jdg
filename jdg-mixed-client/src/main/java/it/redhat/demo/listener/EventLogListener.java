@@ -34,5 +34,7 @@ public class EventLogListener {
     @ClientCacheEntryModified
     public void entryModified(ClientCacheEntryModifiedEvent<String> event) {
         System.out.println("[ClientListener] Key modified " + event.getKey() + " event[" + event + "]");
+        Object o = cache.get(event.getKey());
+        System.out.println("[ClientListener] Key added " + event.getKey() + " object[" + o + "]");
     }
 }

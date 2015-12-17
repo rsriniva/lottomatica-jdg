@@ -3,6 +3,7 @@ package it.redhat.demo.client.hotrod;
 
 import it.redhat.demo.model.CacheEdge;
 import it.redhat.demo.model.CacheNode;
+import it.redhat.demo.model.Pojo;
 import it.redhat.demo.model.TreeCacheDTO;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -36,26 +37,20 @@ public class HotRodClientFactory implements HotRodFactory {
 //            ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
 
             ConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.nearCache().mode(NearCacheMode.LAZY);
-            builder.nearCache().maxEntries(100);
+//            builder.nearCache().mode(NearCacheMode.LAZY);
+//            builder.nearCache().maxEntries(100);
 
-/*
-            builder.addServer()
-                    .host("127.0.0.1")
-                    .port(DEFAULT_HOTROD_PORT)
-                    .marshaller(mm);
-*/
-            builder.addServer()
+            builder
+//                    .marshaller(mm)
+                    .addServer()
                     .host("127.0.0.1")
                     .port(DEFAULT_HOTROD_PORT);
 
             cacheManager = new RemoteCacheManager(builder.build());
 
-/*
-            SerializationContext serCtx = ProtoStreamMarshaller
-                    .getSerializationContext(cacheManager);
-            configureProtobufMarshaller(serCtx);
-*/
+//            SerializationContext serCtx = ProtoStreamMarshaller
+//                    .getSerializationContext(cacheManager);
+//            configureProtobufMarshaller(serCtx);
 
         } catch (Exception ioe) {
             throw new RuntimeException("Error Connecting to Infinispan", ioe);
@@ -74,9 +69,10 @@ public class HotRodClientFactory implements HotRodFactory {
             // client
             generatedSchema = protoSchemaBuilder.fileName("twb.proto")
                     .packageName("it.redhat.demo.model")
-                    .addClass(CacheNode.class)
-                    .addClass(CacheEdge.class)
-                    .addClass(TreeCacheDTO.class)
+                    .addClass(Pojo.class)
+//                    .addClass(CacheNode.class)
+//                    .addClass(CacheEdge.class)
+//                    .addClass(TreeCacheDTO.class)
                     .build(serCtx);
 
             // register the schemas with the server too

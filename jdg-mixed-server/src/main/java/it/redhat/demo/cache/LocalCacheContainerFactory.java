@@ -36,7 +36,6 @@ public class LocalCacheContainerFactory implements CacheContainerFactory {
         try {
             try {
                 cacheContainer = new DefaultCacheManager(infinispanConfigStream);
-//                cacheContainer.getCache("___protobuf_metadata", true);
             } catch (IOException ioe) {
                 throw new RuntimeException("Error loading Infinispan CacheManager.", ioe);
             }

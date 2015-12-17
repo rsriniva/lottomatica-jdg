@@ -11,12 +11,20 @@
         <globalJmxStatistics allowDuplicateDomains="true"/>
     </global>
 
+    <namedCache name="___protobuf_metadata">
+        <clustering mode="repl">
+            <sync/>
+        </clustering>
+    </namedCache>
+
     <namedCache name="MyCoolCache">
         <transaction transactionMode="TRANSACTIONAL"/>
         <clustering mode="dist">
             <sync/>
         </clustering>
-        <dataContainer keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence"/>
-        <compatibility enabled="true"/>
+        <dataContainer  keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence"/>
+
+        <compatibility enabled="true" />
+        <!--<compatibility enabled="true" marshallerClass="it.redhat.demo.server.ProtoMarshaller"/>-->
     </namedCache>
 </infinispan>

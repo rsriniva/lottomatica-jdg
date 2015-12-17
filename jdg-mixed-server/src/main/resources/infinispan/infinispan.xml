@@ -5,18 +5,18 @@
     <global>
         <transport>
             <properties>
-                <property name="configurationFile" value="ispn-jgroups-tcp.xml" />
+                <property name="configurationFile" value="ispn-jgroups-tcp.xml"/>
             </properties>
         </transport>
-        <globalJmxStatistics allowDuplicateDomains="true" />
-        
+        <globalJmxStatistics allowDuplicateDomains="true"/>
     </global>
+
     <namedCache name="MyCoolCache">
-        <transaction transactionMode="TRANSACTIONAL" />
+        <transaction transactionMode="TRANSACTIONAL"/>
         <clustering mode="dist">
-            <sync />
+            <sync/>
         </clustering>
-        <dataContainer keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence" /> 
-        <compatibility enabled="true" />         
+        <dataContainer keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence"/>
+        <compatibility enabled="true"/>
     </namedCache>
 </infinispan>

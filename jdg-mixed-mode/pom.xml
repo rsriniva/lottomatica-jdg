@@ -69,6 +69,13 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.1.2</version>
             </dependency>
+
+
+            <dependency>
+                <groupId>it.redhat.demo</groupId>
+                <artifactId>jdg-mixed-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -79,11 +86,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
             </plugin>
         </plugins>
 

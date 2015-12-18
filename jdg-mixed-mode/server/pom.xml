@@ -16,6 +16,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>it.redhat.demo</groupId>
+            <artifactId>jdg-mixed-model</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
         </dependency>
@@ -73,10 +78,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
@@ -93,12 +94,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>

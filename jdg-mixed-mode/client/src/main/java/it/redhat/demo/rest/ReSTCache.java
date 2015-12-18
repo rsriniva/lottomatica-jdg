@@ -63,6 +63,22 @@ public class ReSTCache extends Application {
         }
     }
 
+    @GET
+    @Path("/{cacheName}/{key}/versioned")
+    @Produces("application/json")
+    public Response getVersionedCacheKey(@PathParam("cacheName") String cacheName, @PathParam("key") String key) {
+        log.info(String.format("Get versioned entry for cache [%s] and key [%s]", cacheName, key));
+
+        try {
+            RemoteCache<Object, Object> cache = cacheContainer.getCache(cacheName);
+            Object o = cache.getVersioned(key);
+            return Response.ok(o).build();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     @POST
     @Path("/{cache}/{key}")
     @Produces("application/json")

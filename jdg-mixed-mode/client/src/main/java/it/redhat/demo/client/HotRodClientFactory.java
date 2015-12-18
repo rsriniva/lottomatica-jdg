@@ -3,6 +3,7 @@ package it.redhat.demo.client;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

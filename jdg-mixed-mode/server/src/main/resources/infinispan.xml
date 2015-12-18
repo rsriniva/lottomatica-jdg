@@ -20,11 +20,11 @@
     <namedCache name="MyCoolCache">
         <transaction transactionMode="TRANSACTIONAL"/>
         <clustering mode="dist">
+            <hash numOwners="2" />
             <sync/>
         </clustering>
-        <dataContainer  keyEquivalence="it.redhat.demo.server.equivalence.AnyServerEquivalence"/>
+        <dataContainer keyEquivalence="it.redhat.demo.server.equivalence.AnyServerEquivalence"/>
 
         <compatibility enabled="true" />
-        <!--<compatibility enabled="true" marshallerClass="it.redhat.demo.marshall.ProtoMarshaller"/>-->
     </namedCache>
 </infinispan>

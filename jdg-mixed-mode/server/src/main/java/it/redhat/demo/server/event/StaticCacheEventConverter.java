@@ -1,4 +1,4 @@
-package it.redhat.demo.cache.event;
+package it.redhat.demo.server.event;
 
 import java.io.Serializable;
 

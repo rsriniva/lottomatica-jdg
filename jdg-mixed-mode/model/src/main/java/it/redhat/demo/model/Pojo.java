@@ -8,8 +8,10 @@ package it.redhat.demo.model;
 import org.infinispan.protostream.annotations.ProtoField;
 import org.infinispan.protostream.annotations.ProtoMessage;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
+@XmlRootElement
 @ProtoMessage(name = "Pojo")
 public class Pojo implements Serializable {
 

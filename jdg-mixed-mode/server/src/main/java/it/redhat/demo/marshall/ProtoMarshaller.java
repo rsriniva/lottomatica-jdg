@@ -1,4 +1,4 @@
-package it.redhat.demo.server;
+package it.redhat.demo.marshall;
 
 import it.redhat.demo.model.Pojo;
 import org.infinispan.commons.io.ByteBuffer;

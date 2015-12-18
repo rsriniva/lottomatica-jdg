@@ -1,4 +1,4 @@
-package it.redhat.demo.server.hotrod;
+package it.redhat.demo.client;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -11,11 +11,12 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+ 
 
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface HotRod {
+public @interface HotRodClient {
 
 }

@@ -5,7 +5,7 @@
     <global>
         <transport>
             <properties>
-                <property name="configurationFile" value="ispn-jgroups-tcp.xml"/>
+                <property name="configurationFile" value="jgroups-tcp.xml"/>
             </properties>
         </transport>
         <globalJmxStatistics allowDuplicateDomains="true"/>
@@ -22,9 +22,9 @@
         <clustering mode="dist">
             <sync/>
         </clustering>
-        <dataContainer  keyEquivalence="it.redhat.demo.cache.equivalence.AnyServerEquivalence"/>
+        <dataContainer  keyEquivalence="it.redhat.demo.server.equivalence.AnyServerEquivalence"/>
 
         <compatibility enabled="true" />
-        <!--<compatibility enabled="true" marshallerClass="it.redhat.demo.server.ProtoMarshaller"/>-->
+        <!--<compatibility enabled="true" marshallerClass="it.redhat.demo.marshall.ProtoMarshaller"/>-->
     </namedCache>
 </infinispan>

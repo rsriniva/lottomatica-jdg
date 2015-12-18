@@ -1,4 +1,4 @@
-package it.redhat.demo.cache;
+package it.redhat.demo.server;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

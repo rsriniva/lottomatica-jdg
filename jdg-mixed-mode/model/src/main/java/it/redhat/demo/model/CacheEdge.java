@@ -5,13 +5,13 @@
  */
 package it.redhat.demo.model;
 
-import java.io.Serializable;
 import org.infinispan.protostream.annotations.ProtoDoc;
 import org.infinispan.protostream.annotations.ProtoField;
 import org.infinispan.protostream.annotations.ProtoMessage;
 
+import java.io.Serializable;
+
 /**
- *
  * @author francesco
  */
 @ProtoMessage(name = "CacheEdge")

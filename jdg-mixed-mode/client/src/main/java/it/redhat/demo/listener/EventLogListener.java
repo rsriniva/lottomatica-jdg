@@ -1,6 +1,5 @@
 package it.redhat.demo.listener;
 
-import it.redhat.demo.model.CacheNode;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.annotation.ClientCacheEntryCreated;
 import org.infinispan.client.hotrod.annotation.ClientCacheEntryModified;
@@ -13,9 +12,9 @@ import org.infinispan.client.hotrod.event.ClientCacheEntryRemovedEvent;
 @ClientListener
 public class EventLogListener {
 
-    private final RemoteCache<String, CacheNode> cache;
+    private final RemoteCache<String, Object> cache;
 
-    public EventLogListener(RemoteCache<String, CacheNode> cache) {
+    public EventLogListener(RemoteCache<String, Object> cache) {
         this.cache = cache;
     }
 

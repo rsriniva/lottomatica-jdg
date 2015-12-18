@@ -14,6 +14,9 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 @Singleton
 @Startup
 public class HotRod6ServerManager {
@@ -32,8 +35,6 @@ public class HotRod6ServerManager {
 
     private HotRodServer hotRodServer;
 
-    private Transport transport;
-
     @Inject
     @LocalCacheContainer
     private EmbeddedCacheManager cacheManager;
@@ -43,18 +44,19 @@ public class HotRod6ServerManager {
         try {
             if (hotRodServer != null) {
                 log.info("HotRodServer connector is stopping.");
-                try {
-                    transport.stop();
-                    hotRodServer.stop();
-                } catch (Exception e) {
-                    log.warn("Failed to stop the HotRodServer connector.");
-                }
+                hotRodServer.stop();
+                Thread.currentThread().wait(SECONDS.convert(15, MILLISECONDS));
             }
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+            Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            log.warn("Failed to stop the HotRodServer connector.");
         } finally {
-            transport = null;
-            hotRodServer = null;
             log.info("Stopped HotRodServer connector.");
+            hotRodServer = null;
         }
+
     }
 
     @PostConstruct
@@ -73,7 +75,7 @@ public class HotRod6ServerManager {
             // Seems not needed anymore in ISPN 7.0.0.CR1s
 //            hotRodServer.addCacheEventConverterFactory("static-converter", new StaticCacheEventConverterFactory());
 
-            transport = hotRodServer.transport();
+            Transport transport = hotRodServer.transport();
 
             log.info("HotRodServer connector started on host '" + transport.getHostName() + "' and port '" + transport.getPort() + "'.");
         } catch (Exception e) {

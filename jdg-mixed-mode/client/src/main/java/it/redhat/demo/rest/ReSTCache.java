@@ -37,8 +37,8 @@ public class ReSTCache extends Application {
         try {
             RemoteCache<String, Object> cache = cacheContainer.getCache(cacheName);
             Map<String, Object> map = new HashMap<>();
-            for (Map.Entry<String, Object> entry : cache.entrySet()) {
-                map.put(entry.getKey(), entry.getValue());
+            for (String key : cache.keySet()) {
+                map.put(key, cache.get(key));
             }
             return Response.ok(map).build();
         } catch (Exception e) {

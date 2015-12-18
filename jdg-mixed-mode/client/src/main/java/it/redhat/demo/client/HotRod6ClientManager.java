@@ -39,6 +39,10 @@ public class HotRod6ClientManager {
     @PreDestroy
     public void stop() {
         if (cacheManager != null) {
+            RemoteCache<Object, Object> cache = cacheManager.getCache("MyCoolCache");
+            for(Object listener: cache.getListeners()) {
+                cache.removeClientListener(listener);
+            }
             cacheManager.stop();
         }
     }

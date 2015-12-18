@@ -1,7 +1,6 @@
 package it.redhat.demo.client;
 
 import it.redhat.demo.listener.EventLogListener;
-import it.redhat.demo.model.CacheNode;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.slf4j.Logger;
@@ -26,7 +25,7 @@ public class HotRod6ClientManager {
     @PostConstruct
     public void doStart() {
         try {
-            RemoteCache<String, CacheNode> cache = cacheManager.getCache("MyCoolCache");
+            RemoteCache<String, Object> cache = cacheManager.getCache("MyCoolCache");
             EventLogListener listener = new EventLogListener(cache);
             cache.addClientListener(listener);
             log.info("Added Listener");
@@ -40,7 +39,7 @@ public class HotRod6ClientManager {
     public void stop() {
         if (cacheManager != null) {
             RemoteCache<Object, Object> cache = cacheManager.getCache("MyCoolCache");
-            for(Object listener: cache.getListeners()) {
+            for (Object listener : cache.getListeners()) {
                 cache.removeClientListener(listener);
             }
             cacheManager.stop();

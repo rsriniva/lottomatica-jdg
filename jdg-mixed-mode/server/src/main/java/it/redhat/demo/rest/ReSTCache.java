@@ -1,7 +1,7 @@
 package it.redhat.demo.rest;
 
-import it.redhat.demo.server.LocalCacheContainer;
 import it.redhat.demo.model.Pojo;
+import it.redhat.demo.server.LocalCacheContainer;
 import org.infinispan.Cache;
 import org.infinispan.manager.CacheContainer;
 import org.slf4j.Logger;
@@ -53,7 +53,8 @@ public class ReSTCache extends Application {
 
         try {
             Object o = cacheContainer.getCache(cacheName).get(key);
-            return Response.ok(o).build();
+            System.out.println("Get Object [" + o + "]");
+            return Response.status(Response.Status.OK).entity(o).build();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

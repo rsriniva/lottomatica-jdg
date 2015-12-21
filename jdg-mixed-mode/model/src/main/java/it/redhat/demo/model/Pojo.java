@@ -29,4 +29,22 @@ public class Pojo implements Serializable {
         this.value = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pojo)) return false;
+
+        Pojo pojo = (Pojo) o;
+
+        if (!key.equals(pojo.key)) return false;
+        return value.equals(pojo.value);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
+    }
 }

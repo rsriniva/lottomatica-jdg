@@ -3,6 +3,9 @@ package it.redhat.demo.client;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.client.hotrod.configuration.NearCacheConfiguration;
+import org.infinispan.client.hotrod.configuration.NearCacheConfigurationBuilder;
+import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +31,8 @@ public class HotRodClientFactory {
             Integer port = Integer.parseInt(System.getProperty(ISPN_HOTROD_PROXY_PORT, DEFAULT_HOTROD_PORT));
 
             ConfigurationBuilder builder = new ConfigurationBuilder();
-//            builder.nearCache().mode(NearCacheMode.LAZY);
-//            builder.nearCache().maxEntries(100);
+            builder.nearCache().mode(NearCacheMode.LAZY);
+            builder.nearCache().maxEntries(100);
 
 //            ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
 //            builder.marshaller(mm);

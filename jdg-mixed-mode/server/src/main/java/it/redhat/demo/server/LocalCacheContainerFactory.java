@@ -1,5 +1,6 @@
 package it.redhat.demo.server;
 
+import it.redhat.demo.server.graftedmode.GraftedModeCacheManager;
 import org.infinispan.commons.util.Util;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
@@ -26,7 +27,7 @@ public class LocalCacheContainerFactory {
         InputStream configurationIS = null;
         try {
             configurationIS = this.getClass().getClassLoader().getResourceAsStream(INFINISPAN_CONFIG_FILE_NAME);
-            return new DefaultCacheManager(configurationIS, true);
+            return new GraftedModeCacheManager(new DefaultCacheManager(configurationIS, true));
         } catch (IOException ioe) {
             throw new RuntimeException("Error loading Infinispan CacheManager.", ioe);
         } finally {

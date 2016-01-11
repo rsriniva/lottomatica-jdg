@@ -1,11 +1,15 @@
 package it.redhat.demo.client;
 
 
+import it.redhat.demo.model.Pojo;
+import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.client.hotrod.configuration.NearCacheConfiguration;
-import org.infinispan.client.hotrod.configuration.NearCacheConfigurationBuilder;
 import org.infinispan.client.hotrod.configuration.NearCacheMode;
+import org.infinispan.client.hotrod.marshall.ProtoStreamMarshaller;
+import org.infinispan.protostream.SerializationContext;
+import org.infinispan.protostream.annotations.ProtoSchemaBuilder;
+import org.infinispan.query.remote.client.ProtobufMetadataManagerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +19,8 @@ import javax.enterprise.inject.Produces;
 public class HotRodClientFactory {
 
     private static final Logger log = LoggerFactory.getLogger(HotRodClientFactory.class);
+
+    private static final String PROTO_SCHEMA_NAME = "twb.proto";
 
     private static final String DEFAULT_HOTROD_BIND_ADDRESS = "127.0.0.1";
     private static final String DEFAULT_HOTROD_PORT = "11222";
@@ -34,16 +40,15 @@ public class HotRodClientFactory {
             builder.nearCache().mode(NearCacheMode.LAZY);
             builder.nearCache().maxEntries(100);
 
-//            ProtoStreamMarshaller mm = new ProtoStreamMarshaller();
-//            builder.marshaller(mm);
+            ProtoStreamMarshaller marshaller = new ProtoStreamMarshaller();
+            builder.marshaller(marshaller);
 
             builder.addServer()
                     .host(host)
                     .port(port);
             RemoteCacheManager remoteCacheManager = new RemoteCacheManager(builder.build());
 
-//            SerializationContext serCtx = mm.getSerializationContext();
-//            configureProtobufMarshaller(serCtx);
+            configureProtobufMarshaller(remoteCacheManager, marshaller.getSerializationContext());
 
             return remoteCacheManager;
         } catch (NumberFormatException nfe) {
@@ -53,19 +58,18 @@ public class HotRodClientFactory {
         }
     }
 
-/*
     private void configureProtobufMarshaller(RemoteCacheManager remoteCacheManager, SerializationContext serCtx) {
         ProtoSchemaBuilder protoSchemaBuilder = new ProtoSchemaBuilder();
         String generatedSchema;
         try {
-            generatedSchema = protoSchemaBuilder.fileName("twb.proto")
-                    .packageName("it.redhat.demo.model")
+            generatedSchema = protoSchemaBuilder.fileName(PROTO_SCHEMA_NAME)
+                    .packageName(Pojo.class.getPackage().getName())
                     .addClass(Pojo.class)
                     .build(serCtx);
 
             String cacheName = ProtobufMetadataManagerConstants.PROTOBUF_METADATA_CACHE_NAME;
             RemoteCache<String, String> metadataCache = remoteCacheManager.getCache(cacheName);
-            metadataCache.put("twb.proto", generatedSchema);
+            metadataCache.put(PROTO_SCHEMA_NAME, generatedSchema);
 
             String errors = metadataCache.get(ProtobufMetadataManagerConstants.ERRORS_KEY_SUFFIX);
             if (errors != null) {
@@ -75,5 +79,4 @@ public class HotRodClientFactory {
             throw new IllegalStateException("An error occurred initializing HotRod protobuf marshaller:", e);
         }
     }
-*/
 }

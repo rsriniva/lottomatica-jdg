@@ -1,6 +1,8 @@
 package it.redhat.demo.server;
 
+import it.redhat.demo.marshall.ProtoMarshaller;
 import it.redhat.demo.server.graftedmode.GraftedModeCacheManager;
+import org.infinispan.commons.marshall.Marshaller;
 import org.infinispan.commons.util.Util;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
@@ -27,7 +29,13 @@ public class LocalCacheContainerFactory {
         InputStream configurationIS = null;
         try {
             configurationIS = this.getClass().getClassLoader().getResourceAsStream(INFINISPAN_CONFIG_FILE_NAME);
-            return new GraftedModeCacheManager(new DefaultCacheManager(configurationIS, true));
+            GraftedModeCacheManager cacheManager = new GraftedModeCacheManager(new DefaultCacheManager(configurationIS, true));
+            Marshaller marshaller = cacheManager.getDefaultCacheConfiguration().compatibility().marshaller();
+            if(marshaller instanceof ProtoMarshaller) {
+                log.info("Register protobuf marshaller");
+                ((ProtoMarshaller)marshaller).registerProto(cacheManager);
+            }
+            return cacheManager;
         } catch (IOException ioe) {
             throw new RuntimeException("Error loading Infinispan CacheManager.", ioe);
         } finally {
